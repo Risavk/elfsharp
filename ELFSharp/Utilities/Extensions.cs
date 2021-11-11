@@ -11,9 +11,12 @@ namespace ELFSharp.Utilities
             while(count > 0)
             {
                 var readThisTurn = stream.Read(result, result.Length - count, count);
-                if(readThisTurn == 0)
+                if (readThisTurn == 0)
                 {
-                    throw new EndOfStreamException($"End of stream reached while {count} bytes more expected.");
+                    // Fast, crude fix for strange binary - need to analyse further.
+                    Console.WriteLine($"End of stream reached while {count} bytes more expected.");
+                    return result;
+
                 }
                 count -= readThisTurn;
             }
